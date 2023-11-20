@@ -8,7 +8,7 @@ export const TaskSchema = new Schema({
   creatorId: {type: Schema.Types.ObjectId, required: true, ref: 'Account'},
   sprintId: {type: Schema.Types.ObjectId, required: true, ref: 'Sprint'},
   projectId: {type: Schema.Types.ObjectId, required: true, ref: 'Project'},
-  assignedTo: {type: Schema.Types.ObjectId, ref: 'Account'}
+  assignedTo: {type: Schema.Types.ObjectId, ref: 'Assign'}
 }, { timestamps: true, toJSON: { virtuals: true }})
 
 TaskSchema.virtual('creator', {
@@ -32,8 +32,8 @@ TaskSchema.virtual('project', {
   ref: 'Project'
 })
 
-TaskSchema.virtual('assignedTo', {
-  localField: 'assignedTo',
-  foreignField: '_id',
-  ref: 'Account'
+TaskSchema.virtual('assign', {
+  localField: '_id',
+  foreignField: 'taskId',
+  ref: 'Assign'
 })

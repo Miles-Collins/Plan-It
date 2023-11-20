@@ -16,9 +16,11 @@ export class ProjectsController extends BaseController{
     .get('/:id/tasks', this.getTasks)
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('', this.create)
+    .post('/:id/sprints', this.createSprint)
     .post('/:id/notes', this.createNote)
-    .post('/:id/task', this.createTask)
+    .post('/:id/tasks', this.createTask)
     .delete('/:id', this.delete)
+    .delete('/:id/sprints/:sprintId', this.deleteSprint)
     .delete('/:id/notes/:noteId', this.deleteNote)
     .delete('/:id/tasks/:taskId', this.deleteTask)
     .put('/:id/tasks/:taskId', this.editTask)
@@ -80,6 +82,30 @@ export class ProjectsController extends BaseController{
   }
   }
 
+  async createSprint (req, res, next) {
+  try {
+    const sprintBody = req.body
+    sprintBody.creatorId = req.userInfo.id
+    sprintBody.projectId = req.params.id
+    const sprint = await sprintsService.create(sprintBody)
+    return res.send(sprint)
+  } catch (error) {
+    next(error)
+  }
+  }
+
+  async deleteSprint (req, res, next) {
+  try {
+    const sprintData = {projectId: req.params.id, sprintId: req.params.sprintId, loggedInUser: req.userInfo.id}
+    const message = await sprintsService.delete(sprintData)
+    return res.send(message)
+  } catch (error) {
+    next(error)
+  }
+  }
+
+
+
   // !SECTION
 
 
@@ -88,8 +114,8 @@ export class ProjectsController extends BaseController{
 
   async createNote (req, res, next) {
   try {
-    const noteBody = req.body
-    noteBody.creatorId = req.userInfo.id
+    let noteBody = req.body
+    noteBody = {...noteBody, creatorId: req.userInfo.id, projectId: req.params.id}
     const note = await notesService.create(noteBody)
     return res.send(note)
   } catch (error) {
@@ -133,8 +159,8 @@ export class ProjectsController extends BaseController{
 
   async createTask (req, res, next) {
   try {
-    const taskBody = req.body
-    taskBody.creatorId = req.userInfo.id
+    let taskBody = req.body
+    taskBody = {...taskBody, creatorId: req.userInfo.id, projectId: req.params.id}
     const task = await tasksService.create(taskBody)
     return res.send(task)
   } catch (error) {
@@ -145,7 +171,8 @@ export class ProjectsController extends BaseController{
   async editTask (req, res, next) {
   try {
     let taskData = req.body
-    taskData = {projectId: req.params.id, loggedInUser: req.userInfo.id, taskId: req.params.taskId}
+    taskData.projectId =
+    taskData = {...taskData, projectId: req.params.id, loggedInUser: req.userInfo.id, taskId: req.params.taskId}
     const task = await tasksService.editTask(taskData)
     return res.send(task)
   } catch (error) {

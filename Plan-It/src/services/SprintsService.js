@@ -11,7 +11,7 @@ class SprintsService {
     return sprint
   }
   async delete(sprintData) {
-    const sprint = await this.getOne(sprintData.id)
+    const sprint = await this.getOne(sprintData.sprintId)
     if(sprint.creatorId != sprintData.loggedInUser) {
       throw new Forbidden(`You do not have permission to delete ${sprint.name}`)
     }
