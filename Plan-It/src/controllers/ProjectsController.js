@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController.js"
 import { projectsService } from "../services/ProjectsService.js"
 import { sprintsService } from "../services/SprintsService.js"
 import { notesService } from "../services/NotesService.js"
+import { tasksService } from "../services/TaskService.js"
 
 export class ProjectsController extends BaseController{
   constructor() {
@@ -12,12 +13,18 @@ export class ProjectsController extends BaseController{
     .get('/:id', this.getOne)
     .get('/:id/sprints', this.getSprints)
     .get('/:id/notes', this.getNotes)
+    .get('/:id/tasks', this.getTasks)
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('', this.create)
     .post('/:id/notes', this.createNote)
+    .post('/:id/task', this.createTask)
     .delete('/:id', this.delete)
     .delete('/:id/notes/:noteId', this.deleteNote)
+    .delete('/:id/tasks/:taskId', this.deleteTask)
+    .put('/:id/tasks/:taskId', this.editTask)
   }
+
+  // SECTION PROJECTS
 
   async getAll (req, res, next) {
   try {
@@ -59,7 +66,9 @@ export class ProjectsController extends BaseController{
   }
   }
 
-  // SPRINTS
+  // !SECTION
+
+  // SECTION SPRINTS
 
   async getSprints (req, res, next) {
   try {
@@ -71,8 +80,11 @@ export class ProjectsController extends BaseController{
   }
   }
 
+  // !SECTION
 
-  // NOTES
+
+
+  // SECTION NOTES
 
   async createNote (req, res, next) {
   try {
@@ -84,6 +96,8 @@ export class ProjectsController extends BaseController{
     next(error)
   }
   }
+
+  // !SECTION
 
   async getNotes (req, res, next) {
   try {
@@ -105,7 +119,52 @@ export class ProjectsController extends BaseController{
   }
   }
 
+  // SECTION TASK
+
+  async getTasks (req, res, next) {
+  try {
+    const projectId = req.params.projectId
+    const projects = await tasksService.getTasksByProjectId(projectId)
+    return res.send(projects)
+  } catch (error) {
+    next(error)
+  }
+  }
+
+  async createTask (req, res, next) {
+  try {
+    const taskBody = req.body
+    taskBody.creatorId = req.userInfo.id
+    const task = await tasksService.create(taskBody)
+    return res.send(task)
+  } catch (error) {
+    next(error)
+  }
+  }
+
+  async editTask (req, res, next) {
+  try {
+    let taskData = req.body
+    taskData = {projectId: req.params.id, loggedInUser: req.userInfo.id, taskId: req.params.taskId}
+    const task = await tasksService.editTask(taskData)
+    return res.send(task)
+  } catch (error) {
+    next(error)
+  }
+  }
+
+  async deleteTask (req, res, next) {
+  try {
+    const taskData = {projectId: req.params.id, loggedInUser: req.userInfo.id, taskId: req.params.taskId}
+    const message = await tasksService.delete(taskData)
+    return res.send(message)
+  } catch (error) {
+    next(error)
+  }
+  }
 
 
 
+
+  // !SECTION
 }
