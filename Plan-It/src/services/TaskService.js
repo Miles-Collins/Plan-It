@@ -37,6 +37,7 @@ class TasksService {
     await task.populate('creator')
     await task.populate('sprint')
     await task.populate('project')
+
     return task
   }
   async getTasksByProjectId(projectId) {
