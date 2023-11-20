@@ -2,7 +2,6 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
 
 class TasksService {
-
   async getOne(taskId) {
     const project = await dbContext.Tasks.findById(taskId).populate('project sprint creator assignedTo')
     if(!project) {
