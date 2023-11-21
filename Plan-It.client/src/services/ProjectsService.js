@@ -9,6 +9,12 @@ class ProjectsService {
     // logger.log("[PROJECTS]", res.data);
     AppState.projects = res.data.map((project) => new Project(project));
   }
+
+  async createProject(projectBody) {
+    const res = await api.post("api/projects", projectBody);
+    AppState.projects.push(new Project(res.data));
+    return new Project(res.data);
+  }
 }
 
 export const projectsService = new ProjectsService();
