@@ -20,3 +20,10 @@ SprintSchema.virtual('creator', {
   ref: 'Account',
   justOne: true
 })
+
+SprintSchema.virtual('tasks', {
+  localField: '_id',
+  foreignField: 'sprintId',
+  ref: 'Task',
+  justOne: false
+})

@@ -4,7 +4,7 @@ import { BadRequest, Forbidden } from "../utils/Errors.js";
 class SprintsService {
 
   async getOne(sprintId) {
-    const sprint = await dbContext.Sprints.findById(sprintId).populate('creator project')
+    const sprint = await dbContext.Sprints.findById(sprintId).populate('creator project tasks')
     if(!sprint) {
       throw new BadRequest(`No Sprint at Id: ${sprintId}`)
     }
@@ -25,7 +25,7 @@ class SprintsService {
     return sprint
   }
   async getSprintsByProjectId(projectId) {
-    const sprints = await dbContext.Sprints.find({projectId}).populate('creator project')
+    const sprints = await dbContext.Sprints.find({projectId}).populate('creator project tasks')
     return sprints
   }
 

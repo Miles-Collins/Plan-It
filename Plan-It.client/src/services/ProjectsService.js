@@ -15,6 +15,20 @@ class ProjectsService {
     AppState.projects.push(new Project(res.data));
     return new Project(res.data);
   }
+
+  async setActiveProject(projectId) {
+    const res = await api.get(`api/projects/${projectId}`);
+    AppState.activeProject = new Project(res.data);
+  }
+
+  async deleteProject(projectId) {
+    const res = await api.delete(`api/projects/${projectId}`);
+    AppState.projects = AppState.projects.filter(
+      (project) => project.id != projectId
+    );
+    AppState.activeProject = null;
+    return res.data;
+  }
 }
 
 export const projectsService = new ProjectsService();

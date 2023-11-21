@@ -28,6 +28,7 @@
         <p class="m-0">STARTED</p>
       </div>
       <div
+        @click="setActiveProject(project.id)"
         class="d-flex justify-content-between py-2 selectable rounded"
         v-for="project in projects"
         :key="project.id"
@@ -70,6 +71,15 @@ export default {
     return {
       projects: computed(() => AppState.projects),
       account: computed(() => AppState.account),
+
+      async setActiveProject(projectId) {
+        try {
+          const project = await projectsService.setActiveProject(projectId);
+        } catch (error) {
+          logger.error("[ERROR]", error);
+          Pop.error("[ERROR]", error.message);
+        }
+      },
     };
   },
 };

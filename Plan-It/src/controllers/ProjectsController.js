@@ -3,7 +3,7 @@ import BaseController from "../utils/BaseController.js"
 import { projectsService } from "../services/ProjectsService.js"
 import { sprintsService } from "../services/SprintsService.js"
 import { notesService } from "../services/NotesService.js"
-import { tasksService } from "../services/TaskService.js"
+import { tasksService } from "../services/TasksService.js"
 
 export class ProjectsController extends BaseController{
   constructor() {
@@ -18,12 +18,9 @@ export class ProjectsController extends BaseController{
     .post('', this.create)
     .post('/:id/sprints', this.createSprint)
     .post('/:id/notes', this.createNote)
-    .post('/:id/tasks', this.createTask)
     .delete('/:id', this.delete)
     .delete('/:id/sprints/:sprintId', this.deleteSprint)
     .delete('/:id/notes/:noteId', this.deleteNote)
-    .delete('/:id/tasks/:taskId', this.deleteTask)
-    .put('/:id/tasks/:taskId', this.editTask)
   }
 
   // SECTION PROJECTS
@@ -149,7 +146,7 @@ export class ProjectsController extends BaseController{
 
   async getTasks (req, res, next) {
   try {
-    const projectId = req.params.projectId
+    const projectId = req.params.id
     const projects = await tasksService.getTasksByProjectId(projectId)
     return res.send(projects)
   } catch (error) {
@@ -168,27 +165,9 @@ export class ProjectsController extends BaseController{
   }
   }
 
-  async editTask (req, res, next) {
-  try {
-    let taskData = req.body
-    taskData.projectId =
-    taskData = {...taskData, projectId: req.params.id, loggedInUser: req.userInfo.id, taskId: req.params.taskId}
-    const task = await tasksService.editTask(taskData)
-    return res.send(task)
-  } catch (error) {
-    next(error)
-  }
-  }
 
-  async deleteTask (req, res, next) {
-  try {
-    const taskData = {projectId: req.params.id, loggedInUser: req.userInfo.id, taskId: req.params.taskId}
-    const message = await tasksService.delete(taskData)
-    return res.send(message)
-  } catch (error) {
-    next(error)
-  }
-  }
+
+
 
 
 
