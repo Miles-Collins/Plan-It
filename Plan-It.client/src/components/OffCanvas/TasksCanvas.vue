@@ -72,11 +72,12 @@
                 v-model="editable.body"
                 placeholder="Say Something..."
                 class="form-control"
+                rows="2"
                 aria-label="With textarea"
               ></textarea>
               <button
                 type="submit"
-                class="input-group-text bg-gradient-secondary text-white btn"
+                class="input-group-text bg-gradient-secondary text-white btn d-flex align-items-center"
               >
                 <i class="fs-1 mdi mdi-menu-right"></i>
               </button>
@@ -153,4 +154,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+textarea {
+  height: 3.5rem;
+}
+button {
+  height: 3.5rem;
+}
+</style>
