@@ -7,9 +7,21 @@ export class SprintsController extends BaseController{
     super('api/sprints')
     this.router
     .use(Auth0Provider.getAuthorizedUserInfo)
+    .get('/:id/tasks', this.getTasks)
     .post('', this.create)
     .delete('/:id', this.delete)
   }
+
+  async getTasks (req, res, next) {
+  try {
+    const sprintId = req.params.id
+    const tasks = await sprintsService.getTasks(sprintId)
+    return res.send(tasks)
+  } catch (error) {
+    next(error)
+  }
+  }
+
 
   async create (req, res, next) {
   try {

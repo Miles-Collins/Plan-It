@@ -10,8 +10,8 @@ export const AppState = reactive({
 
   /** @type {import('./models/Project.js').Project[]} */
   projects: [],
-  /** @type {import('./models/Project.js').Project|null} */
 
+  /** @type {import('./models/Project.js').Project|null} */
   activeProject: null,
 
   // SECTION SPRINTS
@@ -19,8 +19,15 @@ export const AppState = reactive({
   /**  @type {import('./models/Sprint.js).Sprint[]} */
   sprints: [],
 
+  /** @type {import('./models/Sprint.js').Sprint|null} */
+  activeSprint: null,
+
   // SECTION TASKS
 
   /**  @type {import('./models/Task.js).Task[]} */
   tasks: [],
+  /** @type {import('./models/Task.js').Task|null} */
+  activeTask: null,
+  /**  @type {import('./models/Note.js).Note[]} */
+  notes: [],
 });

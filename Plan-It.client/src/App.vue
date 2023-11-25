@@ -7,7 +7,10 @@
   </main>
 
   <ProjectCanvas />
+  <TasksCanvas />
   <CreateProject />
+  <CreateSprint />
+  <CreateTask />
 </template>
 
 <script>
@@ -16,6 +19,9 @@ import { AppState } from "./AppState";
 import Navbar from "./components/Navbar/Navbar.vue";
 import ProjectCanvas from "./components/OffCanvas/ProjectCanvas.vue";
 import CreateProject from "./components/Modals/CreateProject.vue";
+import CreateSprint from "./components/Modals/CreateSprint.vue";
+import CreateTask from "./components/Modals/CreateTask.vue";
+import TasksCanvas from "./components/OffCanvas/TasksCanvas.vue";
 
 export default {
   setup() {
@@ -23,7 +29,14 @@ export default {
       appState: computed(() => AppState),
     };
   },
-  components: { Navbar, ProjectCanvas, CreateProject },
+  components: {
+    Navbar,
+    ProjectCanvas,
+    CreateProject,
+    CreateSprint,
+    CreateTask,
+    TasksCanvas,
+  },
 };
 </script>
 <style lang="scss">

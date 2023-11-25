@@ -3,10 +3,11 @@ import { BadRequest, Forbidden } from "../utils/Errors.js";
 
 class TasksService {
   async getOne(taskId) {
-    const project = await dbContext.Tasks.findById(taskId).populate('project sprint creator assignedTo')
+    const project = await dbContext.Tasks.findById(taskId).populate('project sprint creator assignedTo notes')
     if(!project) {
       throw new BadRequest(`Could not find Task with ID: [${taskId}]!`)
     }
+
     return project
   }
   async delete(taskData) {
@@ -38,10 +39,11 @@ class TasksService {
     await task.populate('sprint')
     await task.populate('project')
 
+
     return task
   }
   async getTasksByProjectId(projectId) {
-    const tasks = await dbContext.Tasks.find({projectId}).populate('project sprint creator assignedTo')
+    const tasks = await dbContext.Tasks.find({projectId}).populate('project sprint creator assignedTo notes')
     return tasks
   }
 

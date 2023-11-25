@@ -37,3 +37,11 @@ TaskSchema.virtual('assign', {
   foreignField: 'taskId',
   ref: 'Assign'
 })
+
+TaskSchema.virtual('notes', {
+  localField: '_id',
+  foreignField: 'taskId',
+  ref: 'Note',
+  justOne: false
+})
+

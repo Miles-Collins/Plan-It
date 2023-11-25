@@ -2,12 +2,15 @@ import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
 import { tasksService } from "../services/TasksService.js";
 import { assignService } from "../services/AssignService.js";
+import { notesService } from "../services/NotesService.js";
 
 export class TasksController extends BaseController{
   constructor() {
     super('api/tasks')
     this.router
     .use(Auth0Provider.getAuthorizedUserInfo)
+    .get('/:id/notes', this.getNotes)
+    .get('/:id', this.getOne)
     .post('', this.createTask)
     .post('/:id/assign', this.createAssign)
     .put('/:id', this.editTask)
@@ -24,6 +27,17 @@ export class TasksController extends BaseController{
     next(error)
   }
   }
+
+  async  getOne(req, res, next) {
+  try {
+    const taskId = req.params.id
+    const task = await tasksService.getOne(taskId)
+    return res.send(task)
+  } catch (error) {
+    next(error)
+  }
+  }
+
 
 
   async createAssign (req, res, next) {
@@ -57,5 +71,19 @@ export class TasksController extends BaseController{
     next(error)
   }
   }
+
+  // SECTION NOTES
+
+    async getNotes (req, res, next) {
+  try {
+    const taskId = req.params.id
+    const notes = notesService.getNotesByProjectId(taskId)
+    return res.send(notes)
+  } catch (error) {
+    next(error)
+  }
+  }
+
+
 
 }

@@ -12,15 +12,14 @@ export class ProjectsController extends BaseController{
     .get('', this.getAll)
     .get('/:id', this.getOne)
     .get('/:id/sprints', this.getSprints)
-    .get('/:id/notes', this.getNotes)
     .get('/:id/tasks', this.getTasks)
+    .get('/:id/notes', this.getNotes)
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('', this.create)
     .post('/:id/sprints', this.createSprint)
-    .post('/:id/notes', this.createNote)
     .delete('/:id', this.delete)
     .delete('/:id/sprints/:sprintId', this.deleteSprint)
-    .delete('/:id/notes/:noteId', this.deleteNote)
+
   }
 
   // SECTION PROJECTS
@@ -105,43 +104,6 @@ export class ProjectsController extends BaseController{
 
   // !SECTION
 
-
-
-  // SECTION NOTES
-
-  async createNote (req, res, next) {
-  try {
-    let noteBody = req.body
-    noteBody = {...noteBody, creatorId: req.userInfo.id, projectId: req.params.id}
-    const note = await notesService.create(noteBody)
-    return res.send(note)
-  } catch (error) {
-    next(error)
-  }
-  }
-
-  // !SECTION
-
-  async getNotes (req, res, next) {
-  try {
-    const projectId = req.params.id
-    const notes = notesService.getNotesByProjectId(projectId)
-    return res.send(notes)
-  } catch (error) {
-    next(error)
-  }
-  }
-
-  async deleteNote (req, res, next) {
-  try {
-    const noteData = {loggedInUser: req.userInfo.id, projectId: req.params.id, noteId: req.params.noteId}
-    const message = await notesService.delete(noteData)
-    return res.send(message)
-  } catch (error) {
-    next(error)
-  }
-  }
-
   // SECTION TASK
 
   async getTasks (req, res, next) {
@@ -173,4 +135,14 @@ export class ProjectsController extends BaseController{
 
 
   // !SECTION
+
+  async getNotes (req, res, next) {
+  try {
+    const taskId = req.params.id
+    const notes = await notesService.getNotesByProjectId(taskId)
+    return res.send(notes)
+  } catch (error) {
+    next(error)
+  }
+  }
 }
