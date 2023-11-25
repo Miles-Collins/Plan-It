@@ -71,7 +71,10 @@
                   >
                     Cancel
                   </button>
-                  <button type="submit" class="btn btn-primary px-5">
+                  <button
+                    type="submit"
+                    class="btn bg-gradient-secondary text-white px-5"
+                  >
                     Create
                   </button>
                 </div>

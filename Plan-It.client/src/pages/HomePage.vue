@@ -3,7 +3,7 @@
     <p
       role="button"
       title="Button to open off canvas for projects"
-      class="fs-2 mt-3 position-absolute top-0 start-0 bg-primary text-white px-4"
+      class="fs-2 mt-3 position-absolute top-0 start-0 bg-gradient-secondary text-white px-4"
       type="button"
       data-bs-toggle="offcanvas"
       data-bs-target="#offcanvasProjects"

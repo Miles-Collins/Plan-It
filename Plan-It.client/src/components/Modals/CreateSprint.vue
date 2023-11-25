@@ -39,7 +39,7 @@
               <button
                 data-bs-dismiss="modal"
                 type="submit"
-                class="btn btn-primary px-4"
+                class="btn bg-gradient-secondary text-white px-4"
               >
                 CREATE
               </button>

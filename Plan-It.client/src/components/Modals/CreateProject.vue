@@ -62,7 +62,12 @@
                   >
                     Cancel
                   </button>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button
+                    type="submit"
+                    class="text-white btn bg-gradient-secondary"
+                  >
+                    Submit
+                  </button>
                 </div>
               </div>
             </form>

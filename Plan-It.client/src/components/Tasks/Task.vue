@@ -1,8 +1,20 @@
 <template>
   <div class="row ps-5">
-    <div class="col-8 col-xl-3 d-flex align-items-center">
+    <div
+      class="col-8 col-xl-3 d-flex justify-content-start align-items-center p-0"
+    >
+      <div class="p-0 pe-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          :value="task.completed"
+          id="flexCheckDefault"
+        />
+      </div>
+
       <p
         @click="setActive"
+        role="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasTask
 "
@@ -19,21 +31,27 @@
         class="selectable ps-2 fs-5 text-secondary mdi mdi-delete-forever"
       ></i>
     </div>
-    <div class="mt-2">
-      <p class="text-secondary">
-        <i class="mdi mdi-run"></i> Created<i class="mdi mdi-circle-small"></i>
-        {{ task.createdAt }}
-      </p>
-    </div>
-    <div class="d-flex mt-2">
-      <p v-if="task.notes">
-        {{ task.notes.length }}
-        <i class="text-primary text-shadow mdi mdi-message-reply-text"></i>
-      </p>
-      <p class="ps-4">
-        {{ task.weight }}
-        <i class="text-secondary mdi mdi-weight"></i>
-      </p>
+    <div class="border-start ms-2 border-dark">
+      <div class="ps-3">
+        <div class="mt-2">
+          <p class="text-secondary">
+            <i class="mdi mdi-run"></i> Created<i
+              class="mdi mdi-circle-small"
+            ></i>
+            {{ task.createdAt }}
+          </p>
+        </div>
+        <div class="d-flex mt-2">
+          <p v-if="task.notes">
+            {{ task.notes.length }}
+            <i class="text-primary text-shadow mdi mdi-message-reply-text"></i>
+          </p>
+          <p class="ps-4">
+            {{ task.weight }}
+            <i class="text-secondary mdi mdi-weight"></i>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
