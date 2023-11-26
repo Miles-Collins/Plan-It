@@ -3,7 +3,7 @@
     <p
       role="button"
       title="Button to open off canvas for projects"
-      class="fs-2 mt-3 position-absolute top-0 start-0 bg-gradient-secondary text-white px-4"
+      class="fs-2 position-absolute project-canvas-button bg-gradient-secondary text-white text-center px-4"
       type="button"
       data-bs-toggle="offcanvas"
       data-bs-target="#offcanvasProjects"
@@ -11,6 +11,16 @@
     >
       P
     </p>
+
+    <p
+      role="button"
+      title="Button to open off modal for editing account."
+      type="button"
+      data-bs-target="#editAccountModal
+"
+      data-bs-toggle="modal"
+      class="position-absolute account-setting-button fs-2 px-4 mdi mdi-cog-outline"
+    ></p>
 
     <div v-if="project" class="row justify-content-center mt-3">
       <!-- TODO MAKE THIS A COMPONENT -->
@@ -137,5 +147,33 @@ export default {
 <style scoped lang="scss">
 p {
   margin: 0;
+}
+
+.account-setting-button {
+  left: 0;
+  top: 5rem;
+  background-color: lightgrey;
+  color: purple;
+  width: 5rem;
+  transition: ease-in-out 0.1s;
+  opacity: 0.75;
+}
+
+.account-setting-button:hover {
+  box-shadow: 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black;
+  opacity: 1;
+}
+
+.project-canvas-button {
+  left: 0;
+  top: 1.5rem;
+  width: 5rem;
+  transition: ease-in-out 0.1s;
+  opacity: 0.75;
+}
+
+.project-canvas-button:hover {
+  box-shadow: 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black;
+  opacity: 1;
 }
 </style>

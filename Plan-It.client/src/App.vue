@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="shadow">
     <Navbar />
   </header>
   <main>
@@ -9,6 +9,7 @@
   <ProjectCanvas />
   <TasksCanvas />
   <EditTaskCanvas />
+  <EditAccount />
   <CreateProject />
   <CreateSprint />
   <CreateTask />
@@ -24,6 +25,7 @@ import CreateTask from "./components/Modals/CreateTask.vue";
 import ProjectCanvas from "./components/OffCanvas/ProjectCanvas.vue";
 import TasksCanvas from "./components/OffCanvas/TasksCanvas.vue";
 import EditTaskCanvas from "./components/OffCanvas/EditTaskCanvas.vue";
+import EditAccount from "./components/Modals/EditAccount.vue";
 
 export default {
   setup() {
@@ -39,6 +41,7 @@ export default {
     CreateTask,
     TasksCanvas,
     EditTaskCanvas,
+    EditAccount,
   },
 };
 </script>

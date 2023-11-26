@@ -1,5 +1,5 @@
 <template>
-  <span class="navbar-text">
+  <span class="navbar-text d-flex justify-content-center">
     <button
       class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
@@ -15,11 +15,10 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <div v-if="account.picture || user.picture">
+          <div v-if="account.picture || user.picture" class="me-2">
             <img
               :src="account.picture || user.picture"
               alt="account photo"
-              height="40"
               class="rounded-circle border border-primary"
             />
           </div>
@@ -68,4 +67,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+img {
+  height: 3rem;
+  max-height: 3rem;
+  border: 1px solid blue !important;
+}
+</style>

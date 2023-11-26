@@ -25,8 +25,8 @@
       <ul class="navbar-nav me-auto"></ul>
       <!-- LOGIN COMPONENT HERE -->
       <div class="pe-3" v-if="user.isAuthenticated">
-        <p class="m-0 text-primary fs-5">{{ account.name }}</p>
-        <p class="m-0">{{ account.title }}</p>
+        <p class="m-0 text-primary fs-4">{{ account.name }}</p>
+        <p class="m-0 text-secondary text-end">{{ account.title }}</p>
       </div>
       <Login />
     </div>

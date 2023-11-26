@@ -23,7 +23,7 @@
       </div>
       <div class="row">
         <div class="col-12 text-start">
-          <p>
+          <p class="note-text">
             {{ note.body }}
           </p>
         </div>
@@ -69,8 +69,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 img {
   max-height: 2rem;
+}
+
+.note-text {
+  font-size: small;
 }
 </style>

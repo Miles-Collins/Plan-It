@@ -29,6 +29,7 @@
           <span class="text-primary">{{ task.name }}</span>
         </h6>
         <i
+          v-if="task.creatorId == account.id"
           data-bs-toggle="offcanvas"
           data-bs-target="#editTaskCanvas"
           role="button"

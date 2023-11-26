@@ -17,7 +17,7 @@
         ></button>
       </div>
       <div>
-        <p>for {{ account.email }}</p>
+        <p>for {{ account.name }}</p>
       </div>
     </div>
     <div class="offcanvas-body text-center">
