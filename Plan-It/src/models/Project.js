@@ -12,3 +12,10 @@ ProjectSchema.virtual("creator", {
   ref: "Account",
   justOne: true
 })
+
+ProjectSchema.virtual("sprints", {
+  localField: '_id',
+  foreignField: 'projectId',
+  ref: 'Sprint',
+  justOne: false
+})

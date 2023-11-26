@@ -28,6 +28,7 @@ class TasksService {
     taskData.weight ? task.weight = taskData.weight : null
     taskData.isComplete ? task.isComplete = taskData.isComplete : null
     taskData.completedOn ? task.completedOn = taskData.completedOn : null
+    taskData.sprintId ? task.sprintId = taskData.sprintId : null
 
     await task.save()
     return task

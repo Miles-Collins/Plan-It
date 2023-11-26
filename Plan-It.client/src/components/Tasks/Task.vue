@@ -1,15 +1,18 @@
 <template>
-  <div class="row ps-5">
+  <div class="row">
     <div
       class="col-8 col-xl-3 d-flex justify-content-start align-items-center p-0"
     >
-      <div class="p-0 pe-3">
+      <div v-if="task.isComplete == true" class="p-0 pe-3">
         <input
           class="form-check-input"
+          checked
           type="checkbox"
-          :value="task.completed"
           id="flexCheckDefault"
         />
+      </div>
+      <div v-else class="p-0 pe-3">
+        <input class="form-check-input" type="checkbox" id="flexCheckDefault" />
       </div>
 
       <p
@@ -24,6 +27,7 @@
         {{ task.name }}
       </p>
       <i
+        v-if="account.id == task.creatorId"
         @click.prevent="deleteTask"
         role="button"
         type="button"
@@ -31,7 +35,10 @@
         class="selectable ps-2 fs-5 text-secondary mdi mdi-delete-forever"
       ></i>
     </div>
-    <div class="border-start ms-2 border-dark">
+    <div
+      :class="taskIndex != tasks.length - 1 ? 'border-start' : ''"
+      class="ms-2 border-dark"
+    >
       <div class="ps-3">
         <div class="mt-2">
           <p class="text-secondary">
@@ -41,7 +48,7 @@
             {{ task.createdAt }}
           </p>
         </div>
-        <div class="d-flex mt-2">
+        <div class="d-flex mt-2 pb-4">
           <p v-if="task.notes">
             {{ task.notes.length }}
             <i class="text-primary text-shadow mdi mdi-message-reply-text"></i>
@@ -83,9 +90,20 @@ export default {
       AppState.notes.filter((note) => note.taskId == props.id)
     );
 
+    const taskIndex = computed(() =>
+      AppState.tasks.findIndex((task) => task.id == props.task.id)
+    );
+
+    const tasks = computed(() => AppState.tasks);
+
+    const account = computed(() => AppState.account);
+
     return {
       randomColor,
       notes,
+      taskIndex,
+      tasks,
+      account,
 
       async deleteTask() {
         try {
@@ -111,6 +129,7 @@ export default {
         try {
           const taskId = props.task.id;
           await tasksService.getOne(taskId);
+          logger.log("[ACTIVE TASK]", AppState.activeTask);
         } catch (error) {
           logger.error("[ERROR]", error);
           Pop.error("[ERROR]", error.message);
@@ -121,4 +140,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.form-check-input:checked {
+  background-color: black !important;
+  height: 1rem;
+  width: 1rem;
+}
+
+.form-check-input {
+  height: 1rem;
+  width: 1rem;
+}
+</style>

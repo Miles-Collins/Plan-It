@@ -55,10 +55,10 @@
 
   <div
     v-if="tasks.length > 0"
-    class="collapse position-relative"
+    class="collapse position-relative p-4"
     :id="sprint.id"
   >
-    <div v-for="task in tasks" :key="task.id" class="card-body p-4">
+    <div v-for="task in tasks" :key="task.id" class="card-body px-4">
       <Task :task="task" />
     </div>
     <p

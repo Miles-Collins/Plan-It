@@ -4,6 +4,7 @@ export class Project {
     this.name = data.name;
     this.description = data.description;
     this.creator = data.creator;
+    this.sprints = data.sprints;
     this.createdAt = data.createdAt
       ? new Date(data.createdAt).toLocaleDateString("en-US")
       : new Date();

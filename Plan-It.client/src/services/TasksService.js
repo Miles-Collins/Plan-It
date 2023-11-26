@@ -22,6 +22,7 @@ class TasksService {
   }
 
   async getOne(taskId) {
+    AppState.activeTask = null;
     const res = await api.get(`api/tasks/${taskId}`);
     AppState.activeTask = new Task(res.data);
   }
@@ -30,6 +31,14 @@ class TasksService {
     const res = await api.get(`api/projects/${projectId}/notes`);
     logger.log("[NOTES]", res.data);
     AppState.notes = res.data.map((note) => new Note(note));
+  }
+
+  async edit(taskBody) {
+    const res = await api.put(`api/tasks/${taskBody.id}`, taskBody);
+    debugger;
+    const index = AppState.tasks.findIndex((task) => task.id == taskBody.id);
+    const task = new Task(res.data);
+    AppState.tasks.splice(index, 1, task);
   }
 }
 

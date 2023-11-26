@@ -8,6 +8,7 @@
 
   <ProjectCanvas />
   <TasksCanvas />
+  <EditTaskCanvas />
   <CreateProject />
   <CreateSprint />
   <CreateTask />
@@ -17,11 +18,12 @@
 import { computed } from "vue";
 import { AppState } from "./AppState";
 import Navbar from "./components/Navbar/Navbar.vue";
-import ProjectCanvas from "./components/OffCanvas/ProjectCanvas.vue";
 import CreateProject from "./components/Modals/CreateProject.vue";
 import CreateSprint from "./components/Modals/CreateSprint.vue";
 import CreateTask from "./components/Modals/CreateTask.vue";
+import ProjectCanvas from "./components/OffCanvas/ProjectCanvas.vue";
 import TasksCanvas from "./components/OffCanvas/TasksCanvas.vue";
+import EditTaskCanvas from "./components/OffCanvas/EditTaskCanvas.vue";
 
 export default {
   setup() {
@@ -36,6 +38,7 @@ export default {
     CreateSprint,
     CreateTask,
     TasksCanvas,
+    EditTaskCanvas,
   },
 };
 </script>

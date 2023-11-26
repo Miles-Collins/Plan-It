@@ -93,6 +93,7 @@ import { tasksService } from "../../services/TasksService.js";
 import { logger } from "../../utils/Logger.js";
 import Pop from "../../utils/Pop.js";
 import { AppState } from "../../AppState.js";
+import { Modal } from "bootstrap";
 
 export default {
   setup() {
@@ -115,6 +116,7 @@ export default {
             sprintId: AppState.activeSprint.id,
           };
           await tasksService.create(taskBody);
+          Modal.getInstance("#createTaskModal").hide();
         } catch (error) {
           logger.error("[ERROR]", error);
           Pop.error("[ERROR]", error.message);

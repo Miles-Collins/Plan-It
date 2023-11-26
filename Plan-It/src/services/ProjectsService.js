@@ -7,7 +7,7 @@ class ProjectsService {
     return projects
   }
   async getOne(projectId) {
-    const project = await dbContext.Projects.findById(projectId).populate('creator')
+    const project = await dbContext.Projects.findById(projectId).populate('creator sprints')
     if(!project) {
       throw new BadRequest(`No project at ID: ${projectId}`)
     }
